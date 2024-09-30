@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import styles from "./fooddetails.module.css";
 export default function FoodDetails({ foodId }) {
     const [food, setFood] = useState({});
     const [isLoading, setIsLoading] = useState(true);
@@ -17,38 +17,43 @@ export default function FoodDetails({ foodId }) {
     }, [foodId]);
     return (
         <div>
-            <div>
-                <h1>{food.title}</h1>
-                <img src={food.image} alt="" />
-            </div>
-            <span>
-                <strong>
-                    ⏰ {food.readyInMinutes} Minutes
-                </strong>
-            </span>
-            <span>
-                👨‍👩‍👧‍👦<strong>
-                    Serves {food.servings}
-                </strong>
-            </span>
-            <span>
-                {food.vegtarian ? "🥕 Vegtarian" : "🍖 Non-Vegtarian"}
-            </span>
-            <span>
-                {food.vegan ? "🐮 Vegan" : ""}
-            </span>
-            <div>
-                💲 <span>
-                    {food.pricePerServing / 100} Per serving
-                </span>
+            <div className={styles.recipeCard}>
+                <h1 className={styles.recipeName}>{food.title}</h1>
+                <img className={styles.recipeImage} src={food.image} alt="" />
+                <div className={styles.recipeDetails}>
+                    <span>
+                        <strong>
+                            ⏰ {food.readyInMinutes} Minutes
+                        </strong>
+                    </span>
+                    <span>
+                        👨‍👩‍👧‍👦<strong>
+                            Serves {food.servings}
+                        </strong>
+                    </span>
+                    <span>
+                        <strong>{food.vegtarian ? "🥕 Vegtarian" : "🍖 Non-Vegtarian"}</strong>
+                    </span>
+                    <span>
+                        <strong>{food.vegan ? "🐮 Vegan" : ""}</strong>
+                    </span>
+                </div>
+                <div>
+                    💲 <span>
+                        <strong>{food.pricePerServing / 100} Per serving</strong>
+                    </span>
+                </div>
+                <h2>instructions</h2>
+                <div className={styles.recipeInstructions}>
+                    <ol>
+                        {isLoading ? <p>Loading...</p> : food.analyzedInstructions[0].steps.map((step) => (<li>
+                            {step.step}
+                        </li>))}
+                    </ol>
+
+                </div>
             </div>
 
-            <div>
-                <h2>instructions</h2>
-                {isLoading ? <p>Loading...</p> : food.analyzedInstructions[0].steps.map((step) => (<li>
-                    {step.step}
-                </li>))}
-            </div>
         </div>
     );
 }
