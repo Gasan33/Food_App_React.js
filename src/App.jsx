@@ -6,9 +6,11 @@ import "./App.css";
 import Container from './components/Container';
 import InnerComponent from './components/InnerContainer';
 import InnerContainer from './components/InnerContainer';
+import FoodDetails from './components/FoodDetails';
 
 function App() {
   const [foodData, setFoodData] = useState([]);
+  const [foodId, setFoodId] = useState("");
 
   return (
     <div className="App">
@@ -16,8 +18,10 @@ function App() {
       <Search foodData={foodData} setFoodData={setFoodData} />
       <Container>
         <InnerContainer>
-          <FoodList foodData={foodData} />
-
+          <FoodList foodData={foodData} setFoodId={setFoodId} />
+        </InnerContainer>
+        <InnerContainer>
+          <FoodDetails foodId={foodId} />
         </InnerContainer>
       </Container>
     </div>
